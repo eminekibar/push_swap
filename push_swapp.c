@@ -226,7 +226,7 @@ void sort_three(t_stack *a) {
 int find_target_index(t_stack *stack, int value)
 {
     int i;
-    int best_index = 0;
+    int best_index = -1;
 
     for (i = 0; i <= stack->top; i++)
     {
@@ -236,7 +236,7 @@ int find_target_index(t_stack *stack, int value)
                 best_index = i;
         }
     }
-    if (best_index == 0) 
+    if (best_index == -1) 
         best_index = find_max_index(stack);
     
     return best_index;
@@ -276,7 +276,7 @@ int find_cheapest_index(t_stack *a, t_stack *b)
             cheapest_index = i;  // En ucuz elemanın indeksini sakla
         }
     }
-    printf("Cheapest: %d [%d]\n", a->array[cheapest_index], cheapest_index);
+    
     return cheapest_index;  // En ucuz elemanın indeksi
 }
 
@@ -302,7 +302,7 @@ void end_rotation_b(t_stack *b, int index)
 {
     while (b->top > index && index >= 0)
     {
-        if (index <= b->top / 2)
+        if (index < b->top / 2)
         {
             rrb(b);  
             index--;
@@ -321,34 +321,39 @@ void move_to_b(t_stack *a, t_stack *b)
     int cheapest_index = find_cheapest_index(a, b);  // En ucuz indeksi bul
     int b_target_index = find_target_index(b, a->array[cheapest_index]);  // B'deki hedefi bul
 
+    //printf("Cheapest: %d [%d]  b target: %d [%d]\n", a->array[cheapest_index], cheapest_index, b->array[b_target_index], b_target_index);
+
     end_rotation_a(a, cheapest_index);  // Yığının A kısmındaki dönüşü yap
     end_rotation_b(b, b_target_index);  // Yığının B kısmındaki dönüşü yap
 
     pb(a, b);  // Elemanı B'ye taşı
 }
 
-// En düşük maliyetli elemanı A'ya taşır
-void move_to_a(t_stack *a, t_stack *b)
-{
-    int cheapest_index = find_cheapest_index(b, a);  // En ucuz indeksi bul B'de
-    int a_target_index = find_target_index(a, b->array[cheapest_index]);  // A'daki hedefi bul
-
-    end_rotation_b(b, cheapest_index);  // Yığının B kısmındaki dönüşü yap
-    end_rotation_a(a, a_target_index);  // Yığının A kısmındaki dönüşü yap
-
-    pa(a, b);  // Elemanı A'ya taşı
-}
-
 // Türk algoritmasıyla sıralama işlemi
 void sort_stacks(t_stack *a, t_stack *b)
 {
-    while (a->top > 2)  // 3 eleman kalana kadar işlemi devam ettir
+    while (a->top >= 0)  // 3 eleman kalana kadar işlemi devam ettir
         move_to_b(a, b);  // En ucuz elemanı bul ve taş
 
-    sort_three(a);  // Kalan 3 elemanı sırala
+    //sort_three(a);  // Kalan 3 elemanı sırala
 
     while (b->top >= 0) // B yığını boşalana kadar elemanları geri taşı
-        move_to_a(a, b);
+        pa(a, b);
+
+    int max_index = find_max_index(a);
+    while (max_index != 0 && max_index >= 0 && max_index <= a->top / 2)
+    {
+        if (max_index < a->top / 2)
+        {
+            rra(a);  
+            max_index--;
+        }
+        else if (max_index >= a->top / 2)
+        {
+            ra(a);  
+            max_index++;
+        }
+    }
 }
 
 // Ana sıralama fonksiyonu
@@ -361,7 +366,7 @@ void push_swap(t_stack *a, t_stack *b)
     sort_stacks(a, b);  // Yığınları sıralayın
 
     // Yığınları yazdır
-    display(a);
+    //display(a);
 }
 
 // Ana fonksiyon
