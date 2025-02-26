@@ -13,6 +13,7 @@ typedef struct s_stack
     int top;     // Yığındaki en üst elemanın indeksini tutar
 } t_stack;
 
+long	ft_atoi(const char *str);
 static int	count_words(char *str, char separator);
 static char	*get_next_word(char *str, char separator);
 char	**ft_split(char *str, char separator);
