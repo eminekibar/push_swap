@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
+# include <stdbool.h>
 
 // Stack yapısı
 typedef struct s_stack
@@ -12,6 +13,9 @@ typedef struct s_stack
     int top;     // Yığındaki en üst elemanın indeksini tutar
 } t_stack;
 
+static int	count_words(char *str, char separator);
+static char	*get_next_word(char *str, char separator);
+char	**ft_split(char *str, char separator);
 void display(t_stack *a);
 t_stack *create_stack(int size);
 void push(t_stack *stack, int value);

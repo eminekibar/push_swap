@@ -17,6 +17,13 @@ int main(int argc, char **argv)
         return 1;
     }
 
+    else if(argc == 2)
+    {
+        argc = 0;
+        argv = ft_split(argv[1], ' ');
+        while (argv[argc])
+            argc++;
+    }
     t_stack *a = create_stack(argc - 1);  // A yığını oluştur
     t_stack *b = create_stack(argc - 1);  // B yığını oluştur
 
