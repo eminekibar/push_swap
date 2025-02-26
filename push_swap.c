@@ -223,21 +223,20 @@ void sort_three(t_stack *a) {
 }
 
 // B'deki uygun indeksin bulunması
-int find_target_index(t_stack *stack, int value)
+int find_target_index(t_stack *b, int value)
 {
-    int i;
+    int i = 0;
     int best_index = -1;
 
-    for (i = 0; i <= stack->top; i++)
+    for (i = 0; i <= b->top; i++)
     {
-        if (stack->array[i] < value)  
-        {   
-            if (best_index < i) 
-                best_index = i;
-        }
+        if (b->array[i] < value && best_index == -1)
+            best_index = i;
+        else if (b->array[i] < value && b->array[best_index] < b->array[i])  
+            best_index = i;
     }
     if (best_index == -1) 
-        best_index = find_max_index(stack);
+        best_index = find_max_index(b);
     
     return best_index;
 }
@@ -264,7 +263,7 @@ int calculate_cost(t_stack *a, t_stack *b, int index)
 // En düşük maliyetli elemanı bulur
 int find_cheapest_index(t_stack *a, t_stack *b)
 {
-    int min_cost = 99999;
+    int min_cost = 999999;
     int cheapest_index = 0;
 
     for (int i = 0; i <= a->top; i++)  // Tüm elemanları incele
@@ -321,7 +320,7 @@ void move_to_b(t_stack *a, t_stack *b)
     int cheapest_index = find_cheapest_index(a, b);  // En ucuz indeksi bul
     int b_target_index = find_target_index(b, a->array[cheapest_index]);  // B'deki hedefi bul
 
-    //printf("Cheapest: %d [%d]  b target: %d [%d]\n", a->array[cheapest_index], cheapest_index, b->array[b_target_index], b_target_index);
+    printf("Cheapest: %d [%d]  b target: %d [%d]\n", a->array[cheapest_index], cheapest_index, b->array[b_target_index], b_target_index);
 
     end_rotation_a(a, cheapest_index);  // Yığının A kısmındaki dönüşü yap
     end_rotation_b(b, b_target_index);  // Yığının B kısmındaki dönüşü yap
@@ -334,8 +333,6 @@ void sort_stacks(t_stack *a, t_stack *b)
 {
     while (a->top >= 0)  // 3 eleman kalana kadar işlemi devam ettir
         move_to_b(a, b);  // En ucuz elemanı bul ve taş
-
-    //sort_three(a);  // Kalan 3 elemanı sırala
 
     while (b->top >= 0) // B yığını boşalana kadar elemanları geri taşı
         pa(a, b);
@@ -367,7 +364,7 @@ void push_swap(t_stack *a, t_stack *b)
     sort_stacks(a, b);  // Yığınları sıralayın
 
     // Yığınları yazdır
-    //display(a);
+    display(a);
 }
 
 // Ana fonksiyon
