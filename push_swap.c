@@ -1,7 +1,7 @@
 #include "push_swap.h"
 
 // Yığını yazdırma fonksiyonu
-void display(t_stack *a)
+void    display(t_stack *a)
 {
     printf("Sorted Stack: ");
     for (int i = 0; i <= a->top; i++)  // Yığındaki her elemanı yazdır
@@ -11,7 +11,7 @@ void display(t_stack *a)
     printf("\n");
 }
 
-void rr_rrr(t_stack *a, t_stack *b, int index_a, int index_b)
+void    rr_rrr(t_stack *a, t_stack *b, int index_a, int index_b)
 {
     if (index_a < a->top / 2 && index_b < b->top / 2) // Eğer her iki indeks de üst yarıda ise, çift yönlü döndür
     {
@@ -26,7 +26,7 @@ void rr_rrr(t_stack *a, t_stack *b, int index_a, int index_b)
 }
 
 // Verilen indeksle yığını döndürme
-void end_rotation_a(t_stack *a, int index_a)
+void    end_rotation_a(t_stack *a, int index_a)
 {
     while (a->top > index_a && index_a >= 0)  
     {
@@ -44,7 +44,7 @@ void end_rotation_a(t_stack *a, int index_a)
     
 }
 
-void end_rotation_b(t_stack *b, int index_b)
+void    end_rotation_b(t_stack *b, int index_b)
 {
     while (b->top > index_b && index_b >= 0)
     {
@@ -62,7 +62,7 @@ void end_rotation_b(t_stack *b, int index_b)
 }
 
 // En düşük maliyetli elemanı B'ye taşır
-void move_to_b(t_stack *a, t_stack *b)
+void    move_to_b(t_stack *a, t_stack *b)
 {
     int     index_a;
     int     index_b;
@@ -123,7 +123,7 @@ void    sort_three(t_stack *a)
 }
 
 // Ana sıralama fonksiyonu
-void push_swap(t_stack *a, t_stack *b)
+void    push_swap(t_stack *a, t_stack *b)
 {
     if (!is_sorted(a))
     {
