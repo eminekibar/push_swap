@@ -280,39 +280,57 @@ int find_cheapest_index(t_stack *a, t_stack *b)
 }
 
 // Verilen indeksle yığını döndürme
-void end_rotation_a(t_stack *a, int index)
+void end_rotation(t_stack *a, t_stack *b, int index_a, int index_b)
 {
-    while (a->top > index && index >=0)  
+    // Eğer her iki indeks de üst yarıda ise, çift yönlü döndür
+    if (index_a < a->top / 2 && index_b < b->top / 2)
     {
-        if (index < a->top / 2)
+        while ((a->top > index_a && index_a >= 0) && (b->top > index_b && index_b >= 0))
+        {
+            rrr(a, b);  
+            index_a--;
+            index_b--;
+        }
+    }
+    // Eğer her iki indeks de alt yarıda ise, ileri yönde döndür
+    else if (index_a >= a->top / 2 && index_b >= b->top / 2)
+    {
+        while ((a->top > index_a && index_a >= 0) && (b->top > index_b && index_b >= 0))
+        {
+            rr(a, b);  
+            index_a++;
+            index_b++;
+        }
+    }
+    
+    while (a->top > index_a && index_a >= 0)  
+    {
+        if (index_a < a->top / 2)
         {
             rra(a);  
-            index--;
+            index_a--;
         }
         else
         {
             ra(a);  
-            index++;
+            index_a++;
         }
     }
-}
-
-void end_rotation_b(t_stack *b, int index)
-{
-    while (b->top > index && index >= 0)
+    while (b->top > index_b && index_b >= 0)
     {
-        if (index < b->top / 2)
+        if (index_b < b->top / 2)
         {
             rrb(b);  
-            index--;
+            index_b--;
         }
         else
         {
             rb(b);  
-            index++;
+            index_b++;
         }
     }
 }
+
 
 // En düşük maliyetli elemanı B'ye taşır
 void move_to_b(t_stack *a, t_stack *b)
@@ -322,8 +340,9 @@ void move_to_b(t_stack *a, t_stack *b)
 
     printf("Cheapest: %d [%d]  b target: %d [%d]\n", a->array[cheapest_index], cheapest_index, b->array[b_target_index], b_target_index);
 
-    end_rotation_a(a, cheapest_index);  // Yığının A kısmındaki dönüşü yap
-    end_rotation_b(b, b_target_index);  // Yığının B kısmındaki dönüşü yap
+    end_rotation(a, b, cheapest_index, b_target_index);
+    // Yığının A kısmındaki dönüşü yap
+    // Yığının B kısmındaki dönüşü yap
 
     pb(a, b);  // Elemanı B'ye taşı
 }
