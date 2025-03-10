@@ -98,43 +98,43 @@ void    move_to_a(t_stack *a, t_stack *b)
 
 void    sort_stacks(t_stack *a, t_stack *b)
 {
-    int     max_index;
+    int     min_index;
 
     while (a->top > 2)
         move_to_b(a, b);
     sort_three(a);
     while (b->top >= 0)
         move_to_a(a, b);
-    max_index = find_max_index(a);
-    while (max_index != 0 && max_index >= 0 && max_index <= a->top)
+    min_index = find_min_index(a);
+    while (min_index != 0 && min_index >= 0 && min_index <= a->top)
     {
-        if (max_index < a->top / 2)
+        if (min_index < a->top / 2)
         {
             rra(a);  
-            max_index--;
+            min_index--;
         }
         else
         {
             ra(a);  
-            max_index++;
+            min_index++;
         }
     }
 }
 
-void    sort_three(t_stack *a) 
+void    sort_three(t_stack *a) // 0 1 2
 {
-    if (a->array[0] > a->array[2] && a->array[2] > a->array[1])
+    if (a->array[0] > a->array[2] && a->array[2] > a->array[1]) // 2 0 1
+        rra(a);
+    else if (a->array[1] > a->array[0] && a->array[0] > a->array[2]) // 1 2 0
+        ra(a);
+    else if (a->array[1] > a->array[2] && a->array[2] > a->array[0]) // 0 2 1
         sa(a);
-    else if (a->array[1] > a->array[0] && a->array[0] > a->array[2])
+    else if (a->array[2] > a->array[0] && a->array[0] > a->array[1]) // 1 0 2
     {
         sa(a);
         ra(a);
-    } 
-    else if (a->array[1] > a->array[2] && a->array[2] > a->array[0])
-        rra(a);
-    else if (a->array[2] > a->array[0] && a->array[0] > a->array[1])
-        ra(a);
-    else if (a->array[2] > a->array[1] && a->array[1] > a->array[0])
+    }
+    else if (a->array[0] > a->array[1] && a->array[1] > a->array[2]) // 2 1 0
     {
         sa(a);
         rra(a);

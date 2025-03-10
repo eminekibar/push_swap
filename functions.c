@@ -7,7 +7,7 @@ int     is_sorted(t_stack *a)
     i = 0;
     while (i < a->top)
     {
-        if (a->array[i] < a->array[i + 1])
+        if (a->array[i] > a->array[i + 1])
             return 0;
         i++;
     }
@@ -46,27 +46,7 @@ int     find_max_index(t_stack *stack)
     return (max_index);
 }
 
-int     find_target_index_b(t_stack *b, int value)
-{
-    int     i;
-    int     best_index;
-
-    best_index = -1;
-    i = 0;
-    while (i <= b->top)
-    {
-        if (b->array[i] < value && best_index == -1)
-            best_index = i;
-        else if (b->array[i] < value && b->array[best_index] < b->array[i])  
-            best_index = i;
-        i++;
-    }
-    if (best_index == -1) 
-        best_index = find_max_index(b);
-    return (best_index);
-}
-
-int     find_target_index_a(t_stack *a, int value) //kendisinden büyük en küçük yoksa min
+int     find_target_index_a(t_stack *a, int value)
 {
     int     i;
     int     best_index;
@@ -75,14 +55,34 @@ int     find_target_index_a(t_stack *a, int value) //kendisinden büyük en kü�
     i = 0;
     while (i <= a->top)
     {
-        if (a->array[i] > value && best_index == -1)
+        if (a->array[i] < value && best_index == -1)
             best_index = i;
-        else if (a->array[i] > value && a->array[best_index] > a->array[i])  
+        else if (a->array[i] < value && a->array[best_index] < a->array[i])  
             best_index = i;
         i++;
     }
     if (best_index == -1) 
-        best_index = find_min_index(a);
+        best_index = find_max_index(a);
+    return (best_index);
+}
+
+int     find_target_index_b(t_stack *b, int value) //kendisinden büyük en küçük yoksa min
+{
+    int     i;
+    int     best_index;
+
+    best_index = -1;
+    i = 0;
+    while (i <= b->top)
+    {
+        if (b->array[i] > value && best_index == -1)
+            best_index = i;
+        else if (b->array[i] > value && b->array[best_index] > b->array[i])  
+            best_index = i;
+        i++;
+    }
+    if (best_index == -1) 
+        best_index = find_min_index(b);
     return (best_index);
 }
 
