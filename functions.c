@@ -46,7 +46,7 @@ int     find_max_index(t_stack *stack)
     return (max_index);
 }
 
-int     find_target_index(t_stack *b, int value)
+int     find_target_index_b(t_stack *b, int value)
 {
     int     i;
     int     best_index;
@@ -66,12 +66,32 @@ int     find_target_index(t_stack *b, int value)
     return (best_index);
 }
 
+int     find_target_index_a(t_stack *a, int value) //kendisinden büyük en küçük yoksa min
+{
+    int     i;
+    int     best_index;
+
+    best_index = -1;
+    i = 0;
+    while (i <= a->top)
+    {
+        if (a->array[i] > value && best_index == -1)
+            best_index = i;
+        else if (a->array[i] > value && a->array[best_index] > a->array[i])  
+            best_index = i;
+        i++;
+    }
+    if (best_index == -1) 
+        best_index = find_min_index(a);
+    return (best_index);
+}
+
 int     calculate_cost(t_stack *a, t_stack *b, int index)
 {
     int     cost;
     int     b_target_index;  
 
-    b_target_index = find_target_index(b, a->array[index]); 
+    b_target_index = find_target_index_b(b, a->array[index]); 
     cost = 0;
     if (index <= a->top / 2)
         cost += index + 1;  

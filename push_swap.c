@@ -80,22 +80,31 @@ void    move_to_b(t_stack *a, t_stack *b)
     int     index_b;
 
     index_a = find_cheapest_index(a, b);
-    index_b = find_target_index(b, a->array[index_a]);
-    printf("Cheapest: %d [%d]  b target: %d [%d]\n", a->array[index_a], index_a, b->array[index_b], index_b);   //sil
+    index_b = find_target_index_b(b, a->array[index_a]);
+    //printf("Cheapest: %d [%d]  b target: %d [%d]\n", a->array[index_a], index_a, b->array[index_b], index_b);   //sil
     rr_rrr(a, b, &index_a, &index_b);
     end_rotation_a(a, &index_a);
     end_rotation_b(b, &index_b);
     pb(a, b);
 }
 
+void    move_to_a(t_stack *a, t_stack *b)
+{
+    int     index_a;
+    index_a = find_target_index_a(a, b->array[b->top]);
+    end_rotation_a(a, &index_a);
+    pa(a, b);
+}
+
 void    sort_stacks(t_stack *a, t_stack *b)
 {
     int     max_index;
 
-    while (a->top >= 0)
+    while (a->top > 2)
         move_to_b(a, b);
+    sort_three(a);
     while (b->top >= 0)
-        pa(a, b);
+        move_to_a(a, b);
     max_index = find_max_index(a);
     while (max_index != 0 && max_index >= 0 && max_index <= a->top)
     {
@@ -144,10 +153,12 @@ void    push_swap(t_stack *a, t_stack *b)
             sort_three(a);
         else
         {
-            pb(a, b);
-            pb(a, b);
+            if (a->top > 2)
+                pb(a, b);
+            if (a->top > 2)
+                pb(a, b);
             sort_stacks(a, b);
         }
     }
-    display(a);             //sil
+    //display(a);             //sil
 }
