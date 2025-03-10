@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-static int  count_words(char *str, char separator)
+int  count_words(char *str, char separator)
 {
 	int		count;
 	bool	inside_word;
@@ -24,7 +24,7 @@ static int  count_words(char *str, char separator)
 	return (count);
 }
 
-static char     *get_next_word(char *str, char separator)
+char     *get_next_word(char *str, char separator)
 {
 	static int  cursor = 0;
 	char		*next_str;

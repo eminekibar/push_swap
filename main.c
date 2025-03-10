@@ -1,13 +1,12 @@
 #include "push_swap.h"
 
-// Stack oluşturma fonksiyonu
 t_stack     *create_stack(int size)
 {
     t_stack     *stack;
 
-    stack = (t_stack *)malloc(sizeof(t_stack));       // Stack için bellek ayırma
-    stack->array = (int *)malloc(size * sizeof(int)); // Yığın dizisi için bellek ayırma
-    stack->top = -1;                                  // Yığının başlangıç durumu, yani boş
+    stack = (t_stack *)malloc(sizeof(t_stack));
+    stack->array = (int *)malloc(size * sizeof(int));
+    stack->top = -1;
     return stack;
 }
 
@@ -17,6 +16,7 @@ int     main(int argc, char **argv)
     t_stack     *a;
     t_stack     *b;
 
+    i = 1;
     if (argc < 2)
         return ((printf("Usage: %s <numbers>\n", argv[0])), 1);
     else if (argc == 2)
@@ -26,13 +26,13 @@ int     main(int argc, char **argv)
         while (argv[argc])
             argc++;
     }
-    a = create_stack(argc - 1); // A yığını oluştur
-    b = create_stack(argc - 1); // B yığını oluştur
+    a = create_stack(argc - 1);
+    b = create_stack(argc - 1);
     i = 1;
     while (i < argc)
         push(a, ft_atoi(argv[i++]));
-    push_swap(a, b); // Push_swap fonksiyonunu çağır
-    free(a->array);  // Yığınları serbest bırak
+    push_swap(a, b);
+    free(a->array);
     free(b->array);
     free(a);
     free(b);

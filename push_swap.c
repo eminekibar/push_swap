@@ -1,31 +1,29 @@
 #include "push_swap.h"
 
-// Yığını yazdırma fonksiyonu
-void    display(t_stack *a)
+void    display(t_stack *a)                 //sil
 {
     printf("Sorted Stack: ");
-    for (int i = 0; i <= a->top; i++)  // Yığındaki her elemanı yazdır
+    for (int i = 0; i <= a->top; i++)
     {
         printf("%d ", a->array[i]);
     }
     printf("\n");
 }
 
-void    rr_rrr(t_stack *a, t_stack *b, int index_a, int index_b)
+void    rr_rrr(t_stack *a, t_stack *b, int *index_a, int *index_b)
 {
-    if (index_a < a->top / 2 && index_b < b->top / 2) // Eğer her iki indeks de üst yarıda ise, çift yönlü döndür
+    if (*index_a < a->top / 2 && *index_b < b->top / 2)
     {
-        while ((a->top > index_a && index_a-- >= 0) && (b->top > index_b && index_b-- >= 0))
-            rrr(a, b); 
+        while ((a->top > *index_a && (*index_a)-- >= 0) && (b->top > *index_b && (*index_b)-- >= 0))
+            rrr(a, b);  
     }
-    else if (index_a >= a->top / 2 && index_b >= b->top / 2) // Eğer her iki indeks de alt yarıda ise, ileri yönde döndür
+    else if (*index_a >= a->top / 2 && *index_b >= b->top / 2)
     {
-        while ((a->top > index_a && index_a++ >= 0) && (b->top > index_b && index_b++ >= 0))
-            rr(a, b);  
+        while ((a->top > *index_a && (*index_a)++ >= 0) && (b->top > *index_b && (*index_b)++ >= 0))
+            rr(a, b);
     }
 }
 
-// Verilen indeksle yığını döndürme
 void    end_rotation_a(t_stack *a, int index_a)
 {
     while (a->top > index_a && index_a >= 0)  
@@ -61,29 +59,27 @@ void    end_rotation_b(t_stack *b, int index_b)
     }
 }
 
-// En düşük maliyetli elemanı B'ye taşır
 void    move_to_b(t_stack *a, t_stack *b)
 {
     int     index_a;
     int     index_b;
 
-    index_a = find_cheapest_index(a, b);  // En ucuz indeksi bul
-    index_b = find_target_index(b, a->array[index_a]);  // B'deki hedefi bul
-    printf("Cheapest: %d [%d]  b target: %d [%d]\n", a->array[index_a], index_a, b->array[index_b], index_b);
-    rr_rrr(a, b, index_a, index_b);
-    end_rotation_a(a, index_a); // Yığının A kısmındaki dönüşü yap 
-    end_rotation_b(b, index_b); // Yığının B kısmındaki dönüşü yap
-    pb(a, b);  // Elemanı B'ye taşı
+    index_a = find_cheapest_index(a, b);
+    index_b = find_target_index(b, a->array[index_a]);
+    printf("Cheapest: %d [%d]  b target: %d [%d]\n", a->array[index_a], index_a, b->array[index_b], index_b);   //sil
+    rr_rrr(a, b, &index_a, &index_b);
+    end_rotation_a(a, index_a);
+    end_rotation_b(b, index_b);
+    pb(a, b);
 }
 
-// Türk algoritmasıyla sıralama işlemi
 void    sort_stacks(t_stack *a, t_stack *b)
 {
     int     max_index;
 
-    while (a->top >= 0)  // 3 eleman kalana kadar işlemi devam ettir
-        move_to_b(a, b);  // En ucuz elemanı bul ve taş
-    while (b->top >= 0) // B yığını boşalana kadar elemanları geri taşı
+    while (a->top >= 0)
+        move_to_b(a, b);
+    while (b->top >= 0)
         pa(a, b);
     max_index = find_max_index(a);
     while (max_index != 0 && max_index >= 0 && max_index <= a->top)
@@ -101,28 +97,26 @@ void    sort_stacks(t_stack *a, t_stack *b)
     }
 }
 
-// Üç elemanı sıralama fonksiyonu
 void    sort_three(t_stack *a) 
 {
-    if (a->array[0] > a->array[2] && a->array[2] > a->array[1]) // A C B -> sa
+    if (a->array[0] > a->array[2] && a->array[2] > a->array[1])
         sa(a);
-    else if (a->array[1] > a->array[0] && a->array[0] > a->array[2]) // B A C -> sa, ra
+    else if (a->array[1] > a->array[0] && a->array[0] > a->array[2])
     {
         sa(a);
         ra(a);
     } 
-    else if (a->array[1] > a->array[2] && a->array[2] > a->array[0]) // B C A -> rra
+    else if (a->array[1] > a->array[2] && a->array[2] > a->array[0])
         rra(a);
-    else if (a->array[2] > a->array[0] && a->array[0] > a->array[1]) // C A B -> ra
+    else if (a->array[2] > a->array[0] && a->array[0] > a->array[1])
         ra(a);
-    else if (a->array[2] > a->array[1] && a->array[1] > a->array[0]) // C B A -> sa, rra
+    else if (a->array[2] > a->array[1] && a->array[1] > a->array[0])
     {
         sa(a);
         rra(a);
     }
 }
 
-// Ana sıralama fonksiyonu
 void    push_swap(t_stack *a, t_stack *b)
 {
     if (!is_sorted(a))
@@ -135,10 +129,10 @@ void    push_swap(t_stack *a, t_stack *b)
             sort_three(a);
         else
         {
-            pb(a, b);  // B'ye iki eleman taşı
             pb(a, b);
-            sort_stacks(a, b);  // Yığınları sıralayın
+            pb(a, b);
+            sort_stacks(a, b);
         }
     }
-    display(a);
+    display(a);             //sil
 }

@@ -4,7 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
-# include <stdbool.h>
+#include <stdbool.h>
+#include <unistd.h>
 
 // Stack yapısı
 typedef struct s_stack
@@ -14,8 +15,8 @@ typedef struct s_stack
 } t_stack;
 
 long    ft_atoi(const char *str);
-static int  count_words(char *str, char separator);
-static char     *get_next_word(char *str, char separator);
+int  count_words(char *str, char separator);
+char     *get_next_word(char *str, char separator);
 char    **ft_split(char *str, char separator);
 void    display(t_stack *a);
 t_stack     *create_stack(int size);
@@ -42,7 +43,7 @@ void    sort_three(t_stack *a);
 int     find_target_index(t_stack *b, int value);
 int     calculate_cost(t_stack *a, t_stack *b, int index);
 int     find_cheapest_index(t_stack *a, t_stack *b);
-void    rr_rrr(t_stack *a, t_stack *b, int index_a, int index_b);
+void    rr_rrr(t_stack *a, t_stack *b, int *index_a, int *index_b);
 void    end_rotation_a(t_stack *a, int index_a);
 void    end_rotation_b(t_stack *b, int index_b);
 void    move_to_b(t_stack *a, t_stack *b);

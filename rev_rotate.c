@@ -1,41 +1,37 @@
 #include "push_swap.h"
 
-// Yığın üzerinde reverse rotate işlemi (her elemanı bir sola kaydırma)
 void    rev_rotate(t_stack *stack)
 {
     int     temp;
     int     i;
 
     if (stack->top < 1)
-        return;                          // Eğer yığın tek elemanlıysa, işlem yapma
-    temp = stack->array[0];          // Geçici değişken oluştur
+        return ;
+    temp = stack->array[0];
     i = 0;
-    while (i < stack->top) // Yığındaki her elemanı bir sola kaydır
+    while (i < stack->top)
     {
         stack->array[i] = stack->array[i + 1];
         i++;
     }
-    stack->array[stack->top] = temp; // İlk elemanı sona taşı
+    stack->array[stack->top] = temp;
 }
 
-// Stack üzerinde rra işlemi (reverse rotate)
 void    rra(t_stack *a)
 {
-    rev_rotate(a);   // Reverse rotate işlemi uygula
-    printf("rra\n"); // Yığını göster
+    rev_rotate(a);
+    write(1,"rra\n",4);
 }
 
-// Stack üzerinde rrb işlemi (reverse rotate)
 void    rrb(t_stack *b)
 {
-    rev_rotate(b);   // Reverse rotate işlemi uygula
-    printf("rrb\n"); // Yığını göster
+    rev_rotate(b);
+    write(1,"rrb\n",4);
 }
 
-// Stack üzerinde rrr işlemi (her iki yığın için reverse rotate)
 void    rrr(t_stack *a, t_stack *b)
 {
-    rev_rotate(a);   // Yığın A üzerinde reverse rotate
-    rev_rotate(b);   // Yığın B üzerinde reverse rotate
-    printf("rrr\n"); // Yığınları göster
+    rev_rotate(a);
+    rev_rotate(b);
+    write(1,"rrr\n",4);
 }

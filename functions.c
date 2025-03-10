@@ -1,6 +1,5 @@
 #include "push_swap.h"
 
-// Yığın A'nın sıralı olup olmadığını kontrol eder
 int     is_sorted(t_stack *a)
 {
     int     i;
@@ -8,14 +7,13 @@ int     is_sorted(t_stack *a)
     i = 0;
     while (i < a->top)
     {
-        if (a->array[i] < a->array[i + 1])  // Eğer sıralı değilse
-            return 0;  // Yığın sıralı değil
+        if (a->array[i] < a->array[i + 1])
+            return 0;
         i++;
     }
-    return (1);  // Yığın sıralı
+    return (1);
 }
 
-// Yığındaki en küçük elemanın indeksini bulur
 int     find_min_index(t_stack *stack)
 {
     int     min_index;
@@ -25,14 +23,13 @@ int     find_min_index(t_stack *stack)
     i = 1;
     while (i <= stack->top)
     {
-        if (stack->array[i] < stack->array[min_index])  // Eğer daha küçükse
-            min_index = i;  // Min indeksi güncelle
+        if (stack->array[i] < stack->array[min_index])
+            min_index = i;
         i++;
     }
-    return (min_index);  // En küçük elemanın indeksi
+    return (min_index);
 }
 
-// Yığındaki en büyük elemanın indeksini bulur
 int     find_max_index(t_stack *stack)
 {
     int     max_index;
@@ -42,16 +39,13 @@ int     find_max_index(t_stack *stack)
     i = 0;
     while (i <= stack->top)
     {
-        if (stack->array[i] > stack->array[max_index])  // Eğer daha büyükse
-            max_index = i;  // Max indeksi güncelle
+        if (stack->array[i] > stack->array[max_index])
+            max_index = i;
         i++;
     }
-    return (max_index);  // En büyük elemanın indeksi
+    return (max_index);
 }
 
-
-
-// B'deki uygun indeksin bulunması
 int     find_target_index(t_stack *b, int value)
 {
     int     i;
@@ -72,7 +66,6 @@ int     find_target_index(t_stack *b, int value)
     return (best_index);
 }
 
-// B'ye taşınma maliyetini hesaplar
 int     calculate_cost(t_stack *a, t_stack *b, int index)
 {
     int     cost;
@@ -91,7 +84,6 @@ int     calculate_cost(t_stack *a, t_stack *b, int index)
     return (cost);
 }
 
-// En düşük maliyetli elemanı bulur
 int     find_cheapest_index(t_stack *a, t_stack *b)
 {
     int     min_cost;
@@ -103,13 +95,13 @@ int     find_cheapest_index(t_stack *a, t_stack *b)
     i = 0;
     while (i <= a->top)
     {
-        int cost = calculate_cost(a, b, i);  // Maliyeti hesapla
+        int cost = calculate_cost(a, b, i);
         if (cost < min_cost)
         {
-            min_cost = cost;  // Eğer daha düşükse, güncelle
-            cheapest_index = i;  // En ucuz elemanın indeksini sakla
+            min_cost = cost;
+            cheapest_index = i;
         }
         i++;
     }
-    return (cheapest_index);  // En ucuz elemanın indeksi
+    return (cheapest_index);
 }
