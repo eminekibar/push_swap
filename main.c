@@ -34,6 +34,5 @@ int     main(int argc, char **argv)
         push(a, ft_atoi(argv[i++]));
     push_swap(a, b);
     free_stack(a, b);
-    free_argv(argv);
     return (0);
 }

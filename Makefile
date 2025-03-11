@@ -1,26 +1,28 @@
 NAME = push_swap
 
 CC = gcc
-FLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 RM = rm -rf
 
-SRC = error.c ft_atoi.c ft_split.c functions.c push_swap.c push.c rev_rotate.c rotate.c swap.c main.c
+SRCS = error.c ft_atoi.c ft_split.c functions.c push_swap.c \
+       push.c rev_rotate.c rotate.c swap.c main.c
 
-OBJ = $(SRC:.c=.o)
-
-COMPILE = $(CC) $(FLAGS)
+OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(SRC)
-        $(COMPILE) $(SRC) -o $(NAME)
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+
+%.o: %.c push_swap.h
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-        $(RM) $(OBJ)
+	$(RM) $(OBJS)
 
 fclean: clean
-        $(RM) $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
 
