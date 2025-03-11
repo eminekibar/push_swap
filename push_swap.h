@@ -14,7 +14,6 @@ typedef struct s_stack
 }   t_stack;
 
 void    free_stack(t_stack *a, t_stack *b);
-void    free_argv(char **argv);
 int     ft_is_numeric(char **argv);
 int     is_duplicate(char **argv, int argc);
 int     is_valid_int(char **argv);

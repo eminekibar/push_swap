@@ -62,10 +62,7 @@ int is_valid_int(char **argv)
     {
         nbr = ft_atoi(argv[i]);
         if (nbr > INT_MAX || nbr < INT_MIN)
-        {
-            write(2, "Error\n", 6);
-            exit(1);
-        }
+            return (0);
         i++;
     }
     return (1);
@@ -75,7 +72,7 @@ void    error_control(int argc, char **argv)
 {
     if (!ft_is_numeric(argv))
     {
-        write(1, "Error\n", 6);
+        write(2, "Error\n", 6);
         exit (1);
     }
     if (!is_valid_int(argv))
