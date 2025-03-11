@@ -18,7 +18,7 @@ int     main(int argc, char **argv)
 
     i = 1;
     if (argc < 2)
-        return ((printf("Usage: %s <numbers>\n", argv[0])), 1);
+        exit (1);
     else if (argc == 2)
     {
         argc = 0;
@@ -26,15 +26,14 @@ int     main(int argc, char **argv)
         while (argv[argc])
             argc++;
     }
+    error_control(argc, argv);
     a = create_stack(argc - 1);
     b = create_stack(argc - 1);
     i = 1;
     while (i < argc)
         push(a, ft_atoi(argv[i++]));
     push_swap(a, b);
-    free(a->array);
-    free(b->array);
-    free(a);
-    free(b);
+    free_stack(a, b);
+    free_argv(argv);
     return (0);
 }

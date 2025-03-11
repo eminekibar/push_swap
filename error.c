@@ -77,7 +77,6 @@ int is_valid_int(char **argv)
             free_argv(argv);
             exit(1);
         }
-
         i++;
     }
     return (1);

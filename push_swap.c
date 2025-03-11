@@ -1,15 +1,5 @@
 #include "push_swap.h"
 
-void    display(t_stack *a)                 //sil
-{
-    printf("Sorted Stack: ");
-    for (int i = 0; i <= a->top; i++)
-    {
-        printf("%d ", a->array[i]);
-    }
-    printf("\n");
-}
-
 void    rr_rrr(t_stack *a, t_stack *b, int *index_a, int *index_b)
 {
     if (*index_a < a->top / 2 && *index_b < b->top / 2)
@@ -81,7 +71,6 @@ void    move_to_b(t_stack *a, t_stack *b)
 
     index_a = find_cheapest_index(a, b);
     index_b = find_target_index_b(b, a->array[index_a]);
-    //printf("Cheapest: %d [%d]  b target: %d [%d]\n", a->array[index_a], index_a, b->array[index_b], index_b);   //sil
     rr_rrr(a, b, &index_a, &index_b);
     end_rotation_a(a, &index_a);
     end_rotation_b(b, &index_b);
@@ -121,20 +110,20 @@ void    sort_stacks(t_stack *a, t_stack *b)
     }
 }
 
-void    sort_three(t_stack *a) // 0 1 2
+void    sort_three(t_stack *a)
 {
-    if (a->array[0] > a->array[2] && a->array[2] > a->array[1]) // 2 0 1
+    if (a->array[0] > a->array[2] && a->array[2] > a->array[1])
         rra(a);
-    else if (a->array[1] > a->array[0] && a->array[0] > a->array[2]) // 1 2 0
+    else if (a->array[1] > a->array[0] && a->array[0] > a->array[2])
         ra(a);
-    else if (a->array[1] > a->array[2] && a->array[2] > a->array[0]) // 0 2 1
+    else if (a->array[1] > a->array[2] && a->array[2] > a->array[0])
         sa(a);
-    else if (a->array[2] > a->array[0] && a->array[0] > a->array[1]) // 1 0 2
+    else if (a->array[2] > a->array[0] && a->array[0] > a->array[1])
     {
         sa(a);
         ra(a);
     }
-    else if (a->array[0] > a->array[1] && a->array[1] > a->array[2]) // 2 1 0
+    else if (a->array[0] > a->array[1] && a->array[1] > a->array[2])
     {
         sa(a);
         rra(a);
@@ -160,5 +149,4 @@ void    push_swap(t_stack *a, t_stack *b)
             sort_stacks(a, b);
         }
     }
-    //display(a);             //sil
 }
