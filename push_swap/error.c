@@ -18,7 +18,7 @@ void    free_argv(char **argv)
     free(argv);
 }
 
-int ft_is_numeric(char **argv)
+int     ft_is_numeric(char **argv)
 {
     int     i;
     int     j;
@@ -42,31 +42,42 @@ int ft_is_numeric(char **argv)
     return (1);
 }
 
-int is_duplicate(char **argv, int argc)
+int     is_duplicate(char **argv, int argc)
 {
-    int i, j;
+    int     i; 
+    int     j;
 
-    for (i = 1; i < argc; i++)
+    i = 1;
+    while (i < argc)
     {
-        for (j = i + 1; j < argc; j++)
+        j = i + 1;
+        while (j < argc)
         {
             if (ft_atoi(argv[i]) == ft_atoi(argv[j]))
                 return (1);
+            j++;
         }
+        i++;
     }
     return (0);
 }
 
 int is_valid_int(char **argv)
 {
-    int i = 1;
-    long nbr;
+    int     i;
+    long    nbr;
 
+    i = 1;
     while (argv[i])
     {
         nbr = ft_atoi(argv[i]);
-        if(nbr > INT_MAX || nbr < INT_MIN)
+        if (nbr > INT_MAX || nbr < INT_MIN)
+        {
+            write(2, "Error\n", 6);
             free_argv(argv);
+            exit(1);
+        }
+
         i++;
     }
     return (1);
