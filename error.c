@@ -8,6 +8,19 @@ void    free_stack(t_stack *a, t_stack *b)
     free(b);
 }
 
+void    free_argv(char **argv, bool flag)
+{
+    int     i;
+
+    i = 0;
+    if (flag)
+    {
+        while (argv[i])
+            free(argv[i++]);
+        free(argv);
+    }
+}
+
 int     ft_is_numeric(char **argv)
 {
     int     i;
@@ -68,21 +81,24 @@ int is_valid_int(char **argv)
     return (1);
 }
 
-void    error_control(int argc, char **argv)
+void    error_control(int argc, char **argv, bool flag)
 {
     if (!ft_is_numeric(argv))
     {
         write(2, "Error\n", 6);
+        free_argv(argv, flag);
         exit (1);
     }
     if (!is_valid_int(argv))
     {
         write(2, "Error\n", 6);
+        free_argv(argv, flag);
         exit(1);
     }
     if (is_duplicate(argv, argc))
     {
         write(2, "Error\n", 6);
+        free_argv(argv, flag);
         exit(1);
     }
 }

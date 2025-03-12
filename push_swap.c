@@ -87,46 +87,46 @@ void    move_to_a(t_stack *a, t_stack *b)
 
 void    sort_stacks(t_stack *a, t_stack *b)
 {
-    int     min_index;
+    int     max_index;
 
     while (a->top > 2)
         move_to_b(a, b);
     sort_three(a);
     while (b->top >= 0)
         move_to_a(a, b);
-    min_index = find_min_index(a);
-    while (min_index != 0 && min_index >= 0 && min_index <= a->top)
+    max_index = find_max_index(a);
+    while (max_index != 0 && max_index >= 0 && max_index <= a->top)
     {
-        if (min_index < a->top / 2)
+        if (max_index < a->top / 2)
         {
             rra(a);  
-            min_index--;
+            max_index--;
         }
         else
         {
             ra(a);  
-            min_index++;
+            max_index++;
         }
     }
 }
 
-void    sort_three(t_stack *a)
+void    sort_three(t_stack *a) // 2 1 0
 {
-    if (a->array[0] > a->array[2] && a->array[2] > a->array[1])
-        rra(a);
-    else if (a->array[1] > a->array[0] && a->array[0] > a->array[2])
-        ra(a);
-    else if (a->array[1] > a->array[2] && a->array[2] > a->array[0])
-        sa(a);
-    else if (a->array[2] > a->array[0] && a->array[0] > a->array[1])
+    if (a->array[0] < a->array[1] && a->array[1] < a->array[2]) // 2 0 1
     {
-        sa(a);
         ra(a);
+        sa(a);
     }
-    else if (a->array[0] > a->array[1] && a->array[1] > a->array[2])
+    else if (a->array[0] < a->array[2] && a->array[2] < a->array[1]) // 1 2 0
+        rra(a);
+    else if (a->array[1] < a->array[0] && a->array[0] < a->array[2]) // 0 2 1
+        ra(a);
+    else if (a->array[1] < a->array[2] && a->array[2] < a->array[0]) // 1 0 2
+        sa(a);
+    else if (a->array[2] < a->array[0] && a->array[0] < a->array[1]) // 0 1 2
     {
         sa(a);
-        rra(a);
+        ra(a);
     }
 }
 
@@ -135,11 +135,9 @@ void    push_swap(t_stack *a, t_stack *b)
     if (!is_sorted(a))
     {
         if (a->top == 0)
-            return;
-        if (a->top == 1)
-            sa(a);
-        else if (a->top == 2)
-            sort_three(a);
+        	return ;
+        else if (a->top == 1)
+            ra(a);
         else
         {
             if (a->top > 2)

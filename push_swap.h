@@ -11,13 +11,15 @@ typedef struct s_stack
 {
     int *array;
     int top;
-}   t_stack;
+}t_stack;
 
+void    display(t_stack stack);
 void    free_stack(t_stack *a, t_stack *b);
+void    free_argv(char **argv, bool flag);
 int     ft_is_numeric(char **argv);
 int     is_duplicate(char **argv, int argc);
 int     is_valid_int(char **argv);
-void    error_control(int argc, char **argv);
+void    error_control(int argc, char **argv, bool flag);
 
 long    ft_atoi(const char *str);
 
