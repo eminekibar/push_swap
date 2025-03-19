@@ -5,7 +5,8 @@ CFLAGS = -Wall -Wextra -Werror
 
 RM = rm -rf
 
-SRCS = error.c ft_atoi.c ft_split.c functions.c push_swap.c \
+SRCS = libft/ft_atoi.c libft/ft_split.c libft/ft_strdup.c \
+	   libft/ft_strjoin.c error.c functions.c push_swap.c \
        push.c rev_rotate.c rotate.c swap.c free.c index.c \
 	   move.c main.c
 

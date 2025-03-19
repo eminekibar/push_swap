@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 13:48:16 by ekibar            #+#    #+#             */
-/*   Updated: 2025/03/18 15:08:02 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/19 23:18:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,32 +25,17 @@ t_stack	*create_stack(int size)
 char    *ft_strjoin_args(int argc, char **argv)
 {
     int     i;
-    int     len;
     char    *joined;
-    int     pos;
-	int		j;
 
-    len = 0;
-	i = 1;
-    while (i < argc)
-        len += ft_strlen(argv[i++]) + 1;
-    joined = (char *)malloc(sizeof(char) * len);
-    if (!joined)
-        return (NULL);
-    pos = 0;
+    joined = ft_strdup("");
 	i = 1;
     while (i < argc)
     {
-		j = 0;
-		while (argv[i][j])
-		{
-			joined[pos++] = argv[i][j++];
-		}
+		joined = ft_strjoin(joined, argv[i]);
         if (i < argc - 1)
-            joined[pos++] = ' ';
+            joined = ft_strjoin(joined, " ");
 		i++;
     }
-    joined[pos] = '\0';
     return (joined);
 }
 

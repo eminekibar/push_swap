@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 13:48:35 by ekibar            #+#    #+#             */
-/*   Updated: 2025/03/18 15:39:17 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/19 23:23:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef struct s_stack
 	int	top;
 }		t_stack;
 
+char	*ft_strdup(char *s);
+char	*ft_strjoin(char *s1, char *s2);
 void	ft_error(void);
 int		ft_strlen(char *str);
 void	free_stack(t_stack *a, t_stack *b);
