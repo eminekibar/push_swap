@@ -67,7 +67,10 @@ char	**ft_split(char *str, char separator)
 	i = 0;
 	words_number = count_words(str, separator);
 	if (!words_number)
+	{
+		free(str);
 		ft_error();
+	}
 	vector_strings = malloc(sizeof(char *) * (size_t)(words_number + 2));
 	if (NULL == vector_strings)
 		return (NULL);
