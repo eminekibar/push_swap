@@ -24,6 +24,9 @@ typedef struct s_stack
 	int	top;
 }		t_stack;
 
+long	ft_numlen(char *str);
+char    **argv_split(int *argc, char **argv);
+char    *ft_strjoin_args(int argc, char **argv);
 void	ft_error(void);
 int		ft_strlen(char *str);
 void	free_stack(t_stack *a, t_stack *b);
@@ -32,7 +35,7 @@ int		ft_is_numeric(char **argv);
 int		is_duplicate(char **argv, int argc);
 int		is_valid_int(char **argv);
 void	error_control(int argc, char **argv);
-long	ft_atoi(const char *str);
+long	ft_atoi(char *str);
 char	**ft_split(char *str, char separator);
 t_stack	*create_stack(int size);
 int		is_sorted(t_stack *a);

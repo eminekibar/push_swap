@@ -12,6 +12,29 @@
 
 #include "push_swap.h"
 
+long    ft_numlen(char *str)
+{
+        int             i;
+        long    result;
+        int             k;
+
+        i = 0;
+        k = 0;
+        result = 0;
+        while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+                i++;
+        if (str[i] == '-' || str[i] == '+')
+        {
+                i++;
+        }
+        while (str[i] >= '0' && str[i] <= '9')
+        {
+                result = result * 10 + str[i++] - '0';
+                k++;
+        }
+        return (k);
+}
+
 int	ft_strlen(char *str)
 {
 	int	i;

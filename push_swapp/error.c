@@ -99,9 +99,28 @@ void	control2(char **argv)
 	}
 }
 
+void	control3(char **argv)
+{
+	int     i;
+
+        i = 1;
+        while (argv[i])
+        {
+		if (ft_numlen(argv[i]) > 10)
+		{
+			write(2, "Error\n", 6);
+                        free_argv(argv);
+                        exit(1);
+		}
+                i++;
+        }
+
+}
+
 void	error_control(int argc, char **argv)
 {
 	control2(argv);
+	control3(argv);
 	if (!ft_is_numeric(argv))
 	{
 		write(2, "Error\n", 6);
