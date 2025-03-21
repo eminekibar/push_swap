@@ -64,7 +64,7 @@ void	push_swap(t_stack *a, t_stack *b)
 		if (a->top == 0)
 			return ;
 		else if (a->top == 1)
-			ra(a);
+			sa(a);
 		else
 		{
 			if (a->top > 2)
